@@ -21,4 +21,8 @@ fn main() {
             .expect("failed to open browser");
         return;
     }
+
+    eprintln!("Usage:");
+    eprintln!("  khelper -o store <package_name>");
+    eprintln!("  khelper -o youtube");
 }
