@@ -3,12 +3,27 @@ use std::process::Command;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
+    println!("args: {:?}", args); // Debug line
 
-    if args.len() == 3 && args[1] == "-o" && args[2] == "youtube" {
-        let _ = Command::new("open")
-            .arg("https://www.youtube.com/")
-            .status()
-            .expect("failed to open browser");
+    if args.len() == 3 && (args[1] == "-o" || args[1] == "open") {
+        match args[2].as_str() {
+            "youtube" => {
+                let _ = Command::new("open")
+                    .arg("https://www.youtube.com/")
+                    .status()
+                    .expect("failed to open browser");
+            }
+            "as" => {
+                let _ = Command::new("open")
+                    .arg("-a")
+                    .arg("Android Studio")
+                    .status()
+                    .expect("failed to open Android Studio");
+            }
+            _ => {
+                eprintln!("Unknown target: {}", args[2]);
+            }
+        }
         return;
     }
 
@@ -25,4 +40,5 @@ fn main() {
     eprintln!("Usage:");
     eprintln!("  khelper -o store <package_name>");
     eprintln!("  khelper -o youtube");
+    eprintln!("  khelper -o as");
 }
