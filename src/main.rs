@@ -2,8 +2,13 @@ use std::env;
 use std::process::Command;
 
 fn main() {
+    const VERSION: &str = "1.0.2";
     let args: Vec<String> = env::args().collect();
-    println!("args: {:?}", args); // Debug line
+
+    if args.len() == 2 && (args[1] == "-v" || args[1] == "--version") {
+        println!("khelper version {}", VERSION);
+        return;
+    }
 
     if args.len() == 3 && (args[1] == "-o" || args[1] == "open") {
         match args[2].as_str() {
