@@ -2,7 +2,7 @@ use std::env;
 use std::process::Command;
 
 fn main() {
-    const VERSION: &str = "1.0.4";
+    const VERSION: &str = "1.0.5";
     let args: Vec<String> = env::args().collect();
 
     if args.len() == 2 && (args[1] == "-v" || args[1] == "--version") {
@@ -32,6 +32,12 @@ fn main() {
                     .status()
                     .expect("failed to open Spotify");
             }
+            "prices" | "p" => {
+                let _ = Command::new("open")
+                    .arg("https://www.oree.com.ua/index.php/pricectr")
+                    .status()
+                    .expect("failed to open browser");
+            }
             _ => {
                 eprintln!("Unknown target: {}", args[2]);
             }
@@ -49,10 +55,11 @@ fn main() {
         return;
     }
 
-    eprintln!("Usage:");
-    eprintln!("  khelper -o store <package_name>");
-    eprintln!("             youtube");
-    eprintln!("             as");
-    eprintln!("             music (or 'm')");
-    eprintln!("  khelper -version (or 'v')");
+    eprintln!("Usage:                            ");
+    eprintln!("  khelper -o store <package_name> ");
+    eprintln!("             prices (or 'p')      ");
+    eprintln!("             youtube              ");
+    eprintln!("             as                   ");
+    eprintln!("             music (or 'm')       ");
+    eprintln!("  khelper -version (or 'v')       ");
 }
